@@ -6,26 +6,32 @@ export default class ArrayDeNotas {
 
     criarNota(titulo, texto, categoria) {
 
-        console.log(titulo, texto, categoria);
         let novaNota = new Nota(
             titulo,
             texto,
             categoria
         )
-        console.log(novaNota);
+
         this.notas.push(novaNota)
+        this.notificar();
     }
 
     apagarNotas(indice) {
         this.notas.splice(indice, 1);
+        this.notificar();
     }
 
     inscrever(func) {
-        this._inscritos.push(func)
+        this._inscritos.push(func);
     }
 
+    desinscrever(func) {
+        this._inscritos = this._inscritos.filter(f => f !== func)
+    }
+
+
     notificar() {
-        this._inscritos.forEach(func => func(this.categorias));
+        this._inscritos.forEach(func => func(this.notas));
     }
 
 }
